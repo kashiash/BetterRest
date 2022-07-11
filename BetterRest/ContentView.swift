@@ -11,11 +11,12 @@ import CoreML
 struct ContentView: View {
     @State private var wakeUp = defaultWakeTime
     @State private var sleepAmount = 8.0
-    @State private var coffeeAmount = 1
+    @State private var coffeeAmount = 1.0
     
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var showingAlert = false
+    @State var isEditing  = false
     
     static var defaultWakeTime: Date {
         var components = DateComponents()
@@ -41,11 +42,15 @@ struct ContentView: View {
 //                }
                 
                 Section("Daily coffee intake") {
-                    Picker("Number of cups" ,selection: $coffeeAmount) {
-                        ForEach(1..<21) {
-                            Text(String($0))
+
+                    Text("\(coffeeAmount.formatted())")
+                    Slider(
+                        value: $coffeeAmount,
+                        in: 0...20, step: 1.0,
+                        onEditingChanged: { editing in
+                            isEditing = editing
                         }
-                    }
+                        )
                 }
             }
             .navigationTitle("BetterRest")
