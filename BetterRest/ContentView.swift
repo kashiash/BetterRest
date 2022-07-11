@@ -36,8 +36,16 @@ struct ContentView: View {
                     Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
                 }
 
+//                Section("Daily coffee intake") {
+//                    Stepper(coffeeAmount == 1 ? "1 cup" : "\(coffeeAmount) cups", value: $coffeeAmount, in: 1...20)
+//                }
+                
                 Section("Daily coffee intake") {
-                    Stepper(coffeeAmount == 1 ? "1 cup" : "\(coffeeAmount) cups", value: $coffeeAmount, in: 1...20)
+                    Picker("Number of cups" ,selection: $coffeeAmount) {
+                        ForEach(1..<21) {
+                            Text(String($0))
+                        }
+                    }
                 }
             }
             .navigationTitle("BetterRest")
